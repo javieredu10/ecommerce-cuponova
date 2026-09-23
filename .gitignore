@@ -1,0 +1,24 @@
+# Variables de entorno — NUNCA subir al repo
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Docker volumes locales
+postgres_data/
+mongo_data/
+redis_data/
+rabbitmq_data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log

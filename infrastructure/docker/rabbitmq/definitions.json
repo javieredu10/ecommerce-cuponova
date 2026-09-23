@@ -1,0 +1,23 @@
+{
+  "vhosts": [{"name": "/"}],
+  "exchanges": [
+    {"name": "campaigns.topic", "vhost": "/", "type": "topic", "durable": true, "auto_delete": false},
+    {"name": "orders.topic",    "vhost": "/", "type": "topic", "durable": true, "auto_delete": false},
+    {"name": "deliveries.topic","vhost": "/", "type": "topic", "durable": true, "auto_delete": false},
+    {"name": "notifications.topic","vhost": "/", "type": "topic", "durable": true, "auto_delete": false}
+  ],
+  "queues": [
+    {"name": "campaigns.order.paid",          "vhost": "/", "durable": true, "arguments": {"x-message-ttl": 86400000}},
+    {"name": "deliveries.order.paid",         "vhost": "/", "durable": true, "arguments": {"x-message-ttl": 86400000}},
+    {"name": "notifications.order.paid",      "vhost": "/", "durable": true, "arguments": {"x-message-ttl": 86400000}},
+    {"name": "notifications.delivery.completed","vhost": "/","durable": true, "arguments": {"x-message-ttl": 86400000}},
+    {"name": "orders.campaign.activated",     "vhost": "/", "durable": true}
+  ],
+  "bindings": [
+    {"source": "orders.topic",    "vhost": "/", "destination": "campaigns.order.paid",           "destination_type": "queue", "routing_key": "order.paid"},
+    {"source": "orders.topic",    "vhost": "/", "destination": "deliveries.order.paid",          "destination_type": "queue", "routing_key": "order.paid"},
+    {"source": "orders.topic",    "vhost": "/", "destination": "notifications.order.paid",       "destination_type": "queue", "routing_key": "order.paid"},
+    {"source": "deliveries.topic","vhost": "/", "destination": "notifications.delivery.completed","destination_type": "queue", "routing_key": "delivery.completed"},
+    {"source": "campaigns.topic", "vhost": "/", "destination": "orders.campaign.activated",      "destination_type": "queue", "routing_key": "campaign.activated"}
+  ]
+}

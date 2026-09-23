@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ecommerce
+
+resources:
+  - namespace.yaml
+  - auth-deployment.yaml
+  - transactional-deployments.yaml
+  - remaining-deployments.yaml
+  - infrastructure-deployments.yaml
+  - ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/part-of: ecommerce-multitenant
+  app.kubernetes.io/managed-by: kustomize
